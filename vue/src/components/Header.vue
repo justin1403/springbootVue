@@ -4,19 +4,17 @@
     export default defineComponent({
         name: "Header",
         props:{
-            user:Object,        // 定義一個 user 屬性接受從 Manage.vue 傳進來的 user 對象
+            user:Object,
             collapseBtnClass:String,
-            collapse: ''        // 收縮沒反應，在此修改
+            collapse: ''
         },
         computed:{
             currentPathName(){
-                return this.$store.state.currentPathName;       // 需要監聽的數據
+                return this.$store.state.currentPathName;
             }
         },
         data(){
           return{
-              // circleUrl: "https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png",
-              // user:localStorage.getItem("user")? JSON.parse(localStorage.getItem("user")):{}
           }
         },
         watch:{
@@ -34,7 +32,6 @@
 
     })
 </script>
-<!--{{currentPathName}}-->
 <template>
 <div style="font-size: 12px;line-height: 60px;display: flex">
     <div style="flex:1;font-size: 20px">
@@ -44,10 +41,6 @@
                 <el-breadcrumb-item :v-model="currentPathName" > {{currentPathName}} </el-breadcrumb-item>
             </el-breadcrumb>
     </div>
-<!--    {{user.nickname}} -->
-
-<!--            <el-avatar :size="48" :src="circleUrl" style="margin : 5px" ></el-avatar>-->
-
     <el-dropdown style=" cursor:pointer">
         <div style="display: inline-block">
     <img :src="user.avatarUrl" alt=""  style="height: 50px;width:50px;border-radius: 50%;position: relative; right:10px;margin-bottom:3px;vertical-align:middle">

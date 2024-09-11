@@ -38,8 +38,6 @@
                 left join sys_role
                 on sys_user.role=sys_role.flag
 
-
-
         <where>
             <if test="username !=null and username!=''">
                 and sys_user.username like concat('%',#{username},'%')
@@ -52,16 +50,6 @@
             </if>
         </where>
     </select>
-
-
-
-
-
-
-
-
-
-
 
 
 

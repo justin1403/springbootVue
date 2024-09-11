@@ -38,10 +38,7 @@
         <div v-for="item in menus" :key="item.id">
             <div v-if="item.path">
                 <el-menu-item :index="item.path"> <i :class="item.icon"></i>
-        <!--            <template slot="title">-->
-<!--                        <span  slot="title" >主頁</span>-->
                         <span  slot="title" >{{item.name}}</span>
-        <!--            </template>-->
                 </el-menu-item>
 
             </div>
@@ -49,7 +46,6 @@
                 <el-submenu :index="item.id + ''">
                     <template slot="title">
                         <i :class="item.icon"></i>
-<!--                          收縮隱藏"系統管理"-->
                         <span slot="title" v-show="logoTextShow">{{item.name}}</span>
                     </template>
                     <div v-for="subItem in item.children" :key="subItem.id">

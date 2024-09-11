@@ -47,10 +47,7 @@
             resetForm(userForm) {
                 this.$refs[userForm].resetFields();
             }
-
         }
-
-
     })
 </script>
 
@@ -83,7 +80,6 @@
           <div style="margin: 2px 0 ; text-align:right">
               <el-button type="primary" size="small" autocomplete="off" @click= 'login' >註冊</el-button>
               <el-button type="warning" size="small" autocomplete="off" @click= "$router.push('/login')">返回登入</el-button>
-<!--              <el-button @click="resetForm('userForm')">重置</el-button>-->
           </div>
           </el-form>
       </div>

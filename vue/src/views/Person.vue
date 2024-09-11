@@ -1,7 +1,5 @@
 <script>
 import {defineComponent} from 'vue'
-
-            // headerObj:{ Authorization:window.sessionStorage.getItem('token') }
 export default defineComponent({
     name: "Person",
     data(){
@@ -13,7 +11,6 @@ export default defineComponent({
     },
     created(){
     this.load()
-
     },
     methods:{
         load(){
@@ -25,32 +22,13 @@ export default defineComponent({
             this.request.get("/user/username/" + username).then(res=>{
                 this.form =res.data
             })
-
-            // this.getUser().then(res=>{
-            //     this.form=res
-            // })
         },
-        // async getUser(){
-        //     return (await this.request.get("/user/username/" + this.user.username)).data
-        // },
         save(){
             this.request.post("/user",this.form).then(res=>{
                 if(res.code === '200'){
                     this.$message.success("保存成功")
-
-                    // 頭像觸發父級更新 User 的方法
                     this.$emit("refreshUser")
-
-
-                    // 更新瀏覽器存儲的用戶信息
-                    // this.getUser().then(res=>{
-                    // res.token = JSON.parse(localStorage.getItem("user")).token
-                    // localStorage.setItem("user",JSON.stringify(res))
-                    // })
-
-
                     this.hisy()
-
                 }else{
                     this.$message.error("保存失敗")
                 }
@@ -58,20 +36,13 @@ export default defineComponent({
         },
         hisy(){
             window.history.go(-1)       // 返回 前一頁
-
         },
         handleAvatarSuccess(res){
             this.form.avatarUrl = res
         },
-
-
-
     }
-
 })
 </script>
-<!--;margin-top: 20px;align-items: center;justify-content: center" :visible.sync="dialogFormVisible-->
-<!--              :headers="headerObj"-->
 <template>
     <el-card style="width: 500px">
       <el-form  label-width="80px" size="small">
@@ -84,8 +55,6 @@ export default defineComponent({
               <img v-if="form.avatarUrl" :src="form.avatarUrl" class="avatar">
               <i v-else class="el-icon-plus avatar-uploader-icon"></i>
           </el-upload>
-
-
           <el-form-item label="用戶名">
               <el-input v-model="form.username" disabled  autocomplete="off"></el-input>
           </el-form-item>

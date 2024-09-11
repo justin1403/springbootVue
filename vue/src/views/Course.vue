@@ -19,20 +19,6 @@ export default defineComponent({
         }
     },
     created() {
-        // this.$nextTick(() => {
-        //     // 1.禁用右键菜单
-        //         document.oncontextmenu = new Function("event.returnValue=false");
-        //     // 2.禁用鼠标选中
-        //         document.onselectstart = new Function("event.returnValue=false");
-        //     // 3.禁止键盘F12键
-        //         document.addEventListener("keydown", function (e) {
-        //             if (e.key == "F12") {
-        //                 e.preventDefault();// 如果按下键F12,阻止事件
-        //             }
-        //         });
-        // });
-
-
         this.load()
     },
     methods: {
@@ -87,7 +73,6 @@ export default defineComponent({
         // 修改
         handleEdit(row){
             this.form=Object.assign({},row)
-            // this.form=row        // 按取消也會儲存，但不會顯示儲存成功
             this.dialogFormVisible=true
         },
         // 刪除
@@ -110,7 +95,7 @@ export default defineComponent({
         },
         delBatch() {
 
-            let ids = this.multipleSelection.map(v => v.id)  //對像數組轉換 ID 數組 [{},{},{}] => [1,2,3]
+            let ids = this.multipleSelection.map(v => v.id)
             this.request.post("/course/del/batch", ids).then(res => {
                 if (res) {
                     this.$message.success("批量刪除成功")
@@ -139,15 +124,6 @@ export default defineComponent({
             this.pageNum = pageNum
             this.load()
         },
-
-        // handleUploadSuccess() {
-        //     this.load()
-        // },
-        // download(url){
-        //     window.open(url)
-        // },
-
-
         save(){
             this.request.post("/course",this.form).then(res=>{
                 if(res.code === '200'){
@@ -173,7 +149,6 @@ export default defineComponent({
             <el-button type="primary" icon="el-icon-search" class="ml-5" @click="load">搜索</el-button>
             <el-button type="warning" icon="el-icon-refresh-right" @click="reset">重置</el-button>
         </div>
-<!--            v-if="user.role ==='ROLE_ADMIN'"-->
         <div style="padding: 10px 0">
             <el-button type="primary" @click="handleAdd" v-if="user.role === 'ROLE_ADMIN'">新增<i class="el-icon-circle-plus-outline"></i> </el-button>
             <el-popconfirm
@@ -193,23 +168,14 @@ export default defineComponent({
         <el-main>
     <el-table :data="tableData" border stripe :header-cell-class-name="'headerBg'"  @selection-change="handleSelectionChange"  >
         <el-table-column type="selection"   align="center"  width="55" ></el-table-column>
-
         <el-table-column prop="name" align="center" label="課程名稱"></el-table-column>
         <el-table-column prop="score" align="center" label="學分" width="100" ></el-table-column>
         <el-table-column prop="times" align="center" label="上課時數" width="160" ></el-table-column>
         <el-table-column prop="teacher" align="center" label="授課老師" width="160" ></el-table-column>
-
-
-
-<!--        <el-table-column label="啟用" align="center"  width="180">-->
-<!--            <template slot-scope="scope">-->
-<!--                <el-switch v-model="scope.row.enable" active-color="#13ce66" inactive-color="#ccc" @change="changeEnable(scope.row)"></el-switch>-->
-<!--            </template>-->
-<!--        </el-table-column>-->
         <el-table-column label="操作"  width="260"  align="center">
             <template slot-scope="scope">
-                    <el-button type="primary" @click="selectCourse(scope.row.id)" >選課</el-button>
-                    <el-button type="success" @click="handleEdit(scope.row)" v-if="user.role === 'ROLE_ADMIN'" >編輯 <i class="el-icon-edit"></i></el-button>
+                    <el-button type="primary" @click="selectCourse(scope.row.id)" v-if="user.role === 'ROLE_STUDENT'">選課</el-button>
+                    <el-button type="success" @click="handleEdit(scope.row)" v-if="user.role === 'ROLE_ADMIN'">編輯 <i class="el-icon-edit"></i></el-button>
                 <el-popconfirm
                     class="ml-5"
                     confirm-button-text='確定'
@@ -224,10 +190,7 @@ export default defineComponent({
         </el-table-column>
     </el-table>
         </el-main>
-
         <div class="dialog-footer" >
-            <!-- :hide-on-single-page="value" 當只有一頁，分頁隱藏-->
-
             <el-pagination
                 @size-change="handleSizeChange"
                 @current-change="handleCurrentChange"
@@ -255,21 +218,14 @@ export default defineComponent({
                         <el-option v-for="item in teachers" :key="item.id" :label="item.nickname" :value="item.id"></el-option>
                     </el-select>
                 </el-form-item>
-
-
-
             </el-form>
             <div slot="footer" class="dialog-footer"  >
                 <el-button @click="dialogFormVisible = false">取 消</el-button>
                 <el-button type="primary" @click="save">确 定</el-button>
             </div>
         </el-dialog>
-
-
-
     </el-container>
 </template>
-
 <style scoped>
 
 </style>

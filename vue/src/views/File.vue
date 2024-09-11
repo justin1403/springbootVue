@@ -25,10 +25,8 @@ export default defineComponent({
                     , name: this.name
                 }
             }).then(res => {
-
                 this.tableData = res.data.records
                 this.total = res.data.total
-
             })
 
         },
@@ -87,7 +85,6 @@ export default defineComponent({
             this.pageNum = pageNum
             this.load()
         },
-
         handleFileUploadSuccess() {
             this.load()
         },
@@ -126,12 +123,9 @@ export default defineComponent({
 
         </div>
         </el-header>
-
         <el-main>
-
     <el-table :data="tableData" border stripe :header-cell-class-name="'headerBg'" @selection-change="handleSelectionChange"  >
         <el-table-column type="selection"   align="center"  width="55" ></el-table-column>
-<!--        <el-table-column prop="id" align="center"  label="ID" width="80"></el-table-column>-->
         <el-table-column  label="圖片" align="center" width="100">
             <template slot-scope="scope"  >
                 <img :src="scope.row.url"   width="80" height="80"   />
@@ -145,12 +139,6 @@ export default defineComponent({
                 <el-button type="primary" @click="download(scope.row.url)">下載</el-button>
             </template>
         </el-table-column>
-<!--        <el-table-column label="啟用" align="center"  width="180">-->
-<!--            <template slot-scope="scope">-->
-<!--                <el-switch v-model="scope.row.enable" active-color="#13ce66" inactive-color="#ccc" @change="changeEnable(scope.row)"></el-switch>-->
-<!--            </template>-->
-<!--        </el-table-column>-->
-
         <el-table-column label="操作" width="180" align="center">
             <template slot-scope="scope">
                 <el-popconfirm
@@ -171,8 +159,6 @@ export default defineComponent({
         </el-main>
 
         <div class="dialog-footer2" >
-            <!-- :hide-on-single-page="value" 當只有一頁，分頁隱藏-->
-
             <el-pagination
                 @size-change="handleSizeChange"
                 @current-change="handleCurrentChange"

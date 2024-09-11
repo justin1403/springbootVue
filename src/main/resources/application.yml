@@ -6,13 +6,10 @@ spring:
         url: jdbc:mysql://localhost:3306/datavue?serverTimezone=GMT%2b8
         username: root
         password: 1234
-#    mvc:    # swagger3 需配合使用
-#        pathmatch:
-#            matching-strategy: ant_path_matcher
+
 mybatis:
-    mapper-locations: classpath:mapper/*.xml   #掃描所有 mybatis 的 xml 文件
-#    configuration:
-#        log-impl: org.apache.ibatis.logging.stdout.StdOutImpl  # 會有說明
+    mapper-locations: classpath:mapper/*.xml
+
 mybatis-plus:
     configuration:
         log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

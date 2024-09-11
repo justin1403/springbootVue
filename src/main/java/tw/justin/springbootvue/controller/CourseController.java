@@ -67,40 +67,10 @@ public class CourseController {
 
     @GetMapping("/page")
     public Result finPage(@RequestParam Integer pageNum,
-                                    @RequestParam Integer pageSize
-            ,
-                                    @RequestParam String name
-//            ,
-//                                    @RequestParam(defaultValue = "") String type  ,
-//                                    @RequestParam(defaultValue = "") String teacher_id
-        )   {
-
-
-//        TimeUnit.SECONDS.sleep(20);     // 等待 20 秒
-//        QueryWrapper<Course> queryWrapper =new QueryWrapper<>();
-//
-//        if(!"".equals(name)){
-//        queryWrapper.like("username",name.trim());
-//        }
-//        if(!"".equals(type)) {
-//        queryWrapper.like("email", type.trim());
-//        }
-//        if(!"".equals(teacher_id)) {
-//        queryWrapper.like("address", teacher_id.trim());
-//        }
-
-
-//        queryWrapper.orderByDesc("id");
-//        return Result.success(courseService.page(new Page<>(pageNum,pageSize),queryWrapper));
-
-//        Page<Course> page=courseService.findPage(new Page<>(pageNum,pageSize),queryWrapper);
+                                    @RequestParam Integer pageSize,
+                                    @RequestParam String name)   {
         Page<Course> page=courseService.findPage(new Page<>(pageNum,pageSize),name);
         return Result.success(page);
         }
-
-
-
-
-
 }
 

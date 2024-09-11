@@ -17,39 +17,11 @@
                 multipleSelection:[],
 
                 menuData:[
-                    // {
-                    //     id: 1,
-                    //     label: '主頁',
-                    //
-                    // }, {
-                    //     id: 2,
-                    //     label: '系統管理',
-                    //     children: [{
-                    //         id: 2-1,
-                    //         label: '用戶管理'
-                    //     }, {
-                    //         id: 2-2,
-                    //         label: '角色管理'
-                    //     }, {
-                    //         id: 2-3,
-                    //         label: '菜單管理'
-                    //     }, {
-                    //         id: 2-4,
-                    //         label: '文件管理'
-                    //     }
-                    //
-                    //     ]
-                    //
-                    // }
                 ],
                 props:{
                     label:'name',
                 },
                 options:[],
-
-
-
-
             }
         },
         created() {
@@ -58,11 +30,6 @@
         },
         methods:{
             load(){
-                // 請求分頁查詢數據-mybatis plus-1
-                // this.request.get("http://localhost:9090/user/page?pageNum="+this.pageNum+"&pageSize="+this.pageSize+"&username="+this.username).then(res =>{
-                // console.log(res)
-
-                // 請求分頁查詢數據-mybatis plus-2
                 this.request.get("/menu", {
                     params:{
                          name: this.name,
@@ -70,23 +37,7 @@
                 }).then(res =>{
                     console.log(res)
                     this.tableData=res.data
-
                 })
-
-
-
-                //     // 請求分頁查詢數據-1
-                // fetch("http://localhost:9090/user/page?pageNum="+this.pageNum
-                //     +"&pageSize="+this.pageSize
-                // // )
-                //     +"&username="+this.username)
-                //     .then(res=> res.json()).then(res=>{console.log(res)
-                //   this.tableData=res.data
-                //   this.total=res.total
-                // })
-
-
-
             },
             save(){
                 this.request.post("/menu",this.form).then(res=>{
@@ -103,18 +54,14 @@
             // 新增
             handleAdd(pid){
                 this.dialogFormVisible=true
-
                 // 請求圖標的數據
                 this.request.get("/menu/icons").then(res =>{
                     this.options=res.data
                 })
-
                 this.form={}
                 if(pid) {
                     this.form.pid =pid
                 }
-
-
             },
             // 新增
             handleAddone(){
@@ -123,20 +70,14 @@
                 this.request.get("/menu/icons").then(res =>{
                     this.options=res.data
                 })
-
                 this.form={}
             },
             // 修改
             handleEdit(row){
-                // this.form=Object.assign({},row)
-                this.form = JSON.parse(JSON.stringify(row))   // p21
-                // this.form=row        // 按取消也會儲存，但不會顯示儲存成功
+                this.form = JSON.parse(JSON.stringify(row))
                 this.dialogFormVisible=true
-
-                // 請求圖標的數據
                 this.request.get("/menu/icons").then(res =>{
                     this.options=res.data
-
                 })
             },
             // 刪除
@@ -146,7 +87,6 @@
                         this.$message.success("刪除成功")
                         this.dialogFormVisible=false
                         this.load()
-
                     }else{
                         this.$message.error("刪除失敗")
                     }
@@ -158,20 +98,7 @@
                 this.multipleSelection = val
             },
             delBatch(){
-                // if (!this.ids.length) {
-                //     this.$message.warning("请选择数据！")
-                //     return
-                // }
-                // this.request.get("/user/delEmps/"+this.ids).then(res =>{
-                //     this.$message.success("MyBatis批量删除成功！");
-                //     this.load()
-                // })
-
-
-
-
-
-                let ids = this.multipleSelection.map(v => v.id)  //對像數組轉換 ID 數組 [{},{},{}] => [1,2,3]
+                let ids = this.multipleSelection.map(v => v.id)
                 this.request.post("/menu/del/batch",ids ).then(res=>{
                     if(res.code === '200'){
                         this.$message.success("批量刪除成功")
@@ -204,13 +131,6 @@
             selectMenu(roleId){
               this.MenuDialogVis = true
             },
-            // handleCheckChange(){
-            //
-            // }
-
-
-
-
         }
     })
 </script>
@@ -238,22 +158,12 @@
                 >
                     <el-button type="danger" slot="reference">批量刪除<i class="el-icon-circle-remove-outline"></i> </el-button>
                 </el-popconfirm>
-
-<!--                <el-upload action="http://localhost:9090/user/import" :show-file-list="false" accept="xlsx" :on-success="handleExcelImportSuccess" style="display: inline-block">-->
-<!--                    <el-button type="primary" class="ml-5">導入<i class="el-icon-bottom "></i> </el-button>-->
-<!--                </el-upload>-->
-<!--                <el-button type="primary" @click="exp" class="ml-5" >導出<i class="el-icon-top"></i> </el-button>-->
-
             </div>
         </el-header>
-
-
-
         <el-main>
            <el-table :data="tableData" lazy border stripe :header-cell-class-name="'headerBg'"
                      row-key="id" default-expand-all  @selection-change="handleSelectionChange"  >
           <el-table-column type="selection" width="45" align="center"></el-table-column>
-<!--          <el-table-column prop="id" label="ID" width="80" align="center"></el-table-column>-->
           <el-table-column prop="name" label="名稱" width="120" align="center" ></el-table-column>
           <el-table-column prop="path" label="路徑" width="100" align="center" ></el-table-column>
           <el-table-column prop="pagePath" label="頁面路徑" width="100" align="center" ></el-table-column>
@@ -306,14 +216,9 @@
                           </el-option>
                       </el-select>
               </el-form-item>
-<!--                          <i v-for="item in options" :key="item.name"  :value="item.value" :class="item.value"/>-->
               <el-form-item label="描述">
                   <el-input v-model="form.description" autocomplete="off"></el-input>
               </el-form-item>
-<!--              <el-form-item label="序號">-->
-<!--                  <el-input v-model="form.index" autocomplete="off"></el-input>-->
-<!--              </el-form-item>-->
-
           </el-form>
             <div slot="footer" class="dialog-footer"  >
                 <el-button @click="dialogFormVisible = false">取 消</el-button>
@@ -323,10 +228,6 @@
 
 
           <el-dialog title="菜單分配" :visible.sync="MenuDialogVis" width="30%">
-
-
-
-<!--                      @check-change="handleCheckChange">-->
               <el-tree
                       node-key="id"
                       :data="menuData"
@@ -334,7 +235,6 @@
                       accordion>
                       :free-props="{children:'children',hasChildren:'hasChildren'}"
               </el-tree>
-
             <div slot="footer" class="dialog-footer"  >
                 <el-button @click="MenuDialogVis = false">取 消</el-button>
                 <el-button type="primary" @click="save">确 定</el-button>
@@ -353,23 +253,5 @@
 .el-header {
      height: 60px;
 }
-
-
-
-
-
 </style>
 
-
-/*.dialog-footer2{*/
-/*    //z-index: 500;*/
-/*    position:fixed;*/
-/*    //padding: 3px;*/
-/*    bottom: 0;*/
-/*    //border: 5px;*/
-/*    //margin: 20px;*/
-/*    //height: 99px;*/
-/*    width: 100%;*/
-/*    //font-size: 80px;*/
-/*    text-align: center;*/
-//}

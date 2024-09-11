@@ -28,13 +28,10 @@ public class TokenUtils {
         staticUserService=userService;
     }
 
-
-
-    // 生成 token
     public static String genToken(String userId,String sign){
-        return JWT.create().withAudience(userId) // 將 user id 保存到 token 裡面，作為載荷
-                .withExpiresAt(DateUtil.offsetHour(new Date(),2))  // 2 小時後 token 過期
-                .sign(Algorithm.HMAC256(sign));     // 以 password 作為 token 的密鑰
+        return JWT.create().withAudience(userId)
+                .withExpiresAt(DateUtil.offsetHour(new Date(),2))
+                .sign(Algorithm.HMAC256(sign));
 
     }
 

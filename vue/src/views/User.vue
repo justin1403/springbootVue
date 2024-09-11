@@ -12,9 +12,9 @@
         data(){
             return{
                 tableData:[],   //
-                total:0,    // 資料總筆數
-                pageNum:1,  // 分頁數
-                pageSize:10, // 分頁數量
+                total:0,
+                pageNum:1,
+                pageSize:10,
                 username:"",
                 email:"",
                 address:"",
@@ -29,7 +29,6 @@
             }
         },
         created() {
-            // 請求分頁查詢數據
             this.load()
         },
         methods:{
@@ -43,11 +42,6 @@
             },
 
             load(){
-                // 請求分頁查詢數據-mybatis plus-1
-                // this.request.get("http://localhost:9090/user/page?pageNum="+this.pageNum+"&pageSize="+this.pageSize+"&username="+this.username).then(res =>{
-                // console.log(res)
-
-                // 請求分頁查詢數據-mybatis plus-2
                 this.request.get("/user/page", {
                     params:{
                         pageNum: this.pageNum
@@ -61,30 +55,11 @@
 
                     this.tableData=res.data.records
                     this.total=res.data.total
-
-
-
                 })
-
-
-
-                //     // 請求分頁查詢數據-1
-                // fetch("http://localhost:9090/user/page?pageNum="+this.pageNum
-                //     +"&pageSize="+this.pageSize
-                // // )
-                //     +"&username="+this.username)
-                //     .then(res=> res.json()).then(res=>{console.log(res)
-                //   this.tableData=res.data
-                //   this.total=res.total
-                // })
-
 
                 this.request.get("/role").then(res=>{
                     this.roles = res.data
-
                 })
-
-
             },
             save(){
                 this.request.post("/user",this.form).then(res=>{
@@ -92,7 +67,6 @@
                         this.$message.success("保存成功")
                         this.dialogFormVisible=false
                         this.load()
-
                     }else{
                         this.$message.error("保存失敗")
                     }
@@ -108,7 +82,6 @@
             // 修改
             handleEdit(row){
                 this.form=Object.assign({},row)
-                // this.form=row        // 按取消也會儲存，但不會顯示儲存成功
                 this.dialogFormVisible=true
             },
             // 刪除
@@ -130,19 +103,6 @@
                 this.multipleSelection = val
             },
             delBatch(){
-                // if (!this.ids.length) {
-                //     this.$message.warning("请选择数据！")
-                //     return
-                // }
-                // this.request.get("/user/delEmps/"+this.ids).then(res =>{
-                //     this.$message.success("MyBatis批量删除成功！");
-                //     this.load()
-                // })
-
-
-
-
-
                 let ids = this.multipleSelection.map(v => v.id)  //對像數組轉換 ID 數組 [{},{},{}] => [1,2,3]
                 this.request.post("/user/del/batch",ids ).then(res=>{
                     if(res.code === '200'){
@@ -228,10 +188,8 @@
         <el-main>
            <el-table :data="tableData" border stripe :header-cell-class-name="'headerBg'" @selection-change="handleSelectionChange" style="width: 100%">
           <el-table-column type="selection" width="55" align="center"></el-table-column>
-<!--          <el-table-column prop="id" label="ID" width="60" align="center"></el-table-column>-->
           <el-table-column prop="username" label="用戶名" fixed  width="100" align="center" fixed="left" ></el-table-column>
           <el-table-column prop="nickname" label="暱稱" width="100" align="center"></el-table-column>
-<!--          <el-table-column prop="password" label="密碼" width="100" align="center"></el-table-column>-->
           <el-table-column prop="role" label="角色" width="150" align="center">
               <template slot-scope="scope">
               <el-tag type="primary" v-if="scope.row.role === 'ROLE_ADMIN'">管理員</el-tag>
@@ -262,9 +220,6 @@
           </el-table-column>
       </el-table>
         </el-main>
-
-          <!-- :hide-on-single-page="value" 當只有一頁，分頁隱藏-->
-
           <el-pagination
                   @size-change="handleSizeChange"
                   @current-change="handleCurrentChange"
@@ -337,21 +292,4 @@
 }
 
 
-
-
-
 </style>
-
-
-/*.dialog-footer2{*/
-/*    //z-index: 500;*/
-/*    position:fixed;*/
-/*    //padding: 3px;*/
-/*    bottom: 0;*/
-/*    //border: 5px;*/
-/*    //margin: 20px;*/
-/*    //height: 99px;*/
-/*    width: 100%;*/
-/*    //font-size: 80px;*/
-/*    text-align: center;*/
-//}

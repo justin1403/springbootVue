@@ -6,17 +6,16 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import tw.justin.springbootvue.config.interceptor.JwtInterceptor;
 
-@Configuration  // 配置類都要添加
+@Configuration
 public class InterceptorConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(jwtInterceptor())
-                .addPathPatterns("/**")         // 攔截所有請求，通過判斷 token是否合法來，決定是否需要登錄
+                .addPathPatterns("/**")
                 .excludePathPatterns("/user/login","/hone","/user/register","/**/export","/**/import","/file/**",
                         "/swagger-resources/**","/webjars/**","/v2/**","swagger-ui.html/**","/api","/api-docs","/api-docs/**")    // 排除不驗證
-
-                .excludePathPatterns("/**/*.html","/**/*.js","/**/*.css","/**/*.woff","/**/*.ttf" );     // 放行靜態文件
+                .excludePathPatterns("/**/*.html","/**/*.js","/**/*.css","/**/*.woff","/**/*.ttf" );
     }
 
     @Bean

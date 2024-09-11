@@ -13,11 +13,7 @@ import tw.justin.springbootvue.entity.Menu;
 import java.util.List;
 
 @Data
-//@AllArgsConstructor
-//@NoArgsConstructor
-//@TableName(value = "sys_user")
 public class UserDTO {
-
     private Integer id;
     private String username;
     private String password;

@@ -15,15 +15,12 @@ import java.util.List;
 @TableName(value = "sys_user")
 public class User {
 
-    @TableId(type= IdType.AUTO)     // 標準需使用
-//    @TableId(value = "id")
-//    @TableId
+    @TableId(type= IdType.AUTO)
     private Integer id;
 
     @Alias("用戶名")
     private String username;
 
-//    @JsonIgnore //不展示給前端
     @Alias("密碼")
     private String password;
 
@@ -40,7 +37,6 @@ public class User {
     private String address;
 
     @Alias("頭像")
-//    @TableField(value = "avatar_url")   // 指定數據庫的字段名稱
     private String avatarUrl;
 
     @Alias("創建時間")

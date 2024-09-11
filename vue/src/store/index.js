@@ -13,12 +13,9 @@ const store = new Vuex.Store({
             state.currentPathName= localStorage.getItem("currentPathName")
         },
         logout(){
-            // 清空緩存
             localStorage.removeItem("user")
             localStorage.removeItem("menus")
             router.push("/login")
-
-            // 重置路由
             resetRouter()
         }
     }

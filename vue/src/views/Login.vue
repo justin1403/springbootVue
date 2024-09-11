@@ -16,7 +16,6 @@
                         {required: true, message: '請輸入密碼', trigger: 'blur'},
                         {min: 1, max: 20, message: '長度在 1 到 20 個字符', trigger: 'blur'}
                     ],
-
                 },
             }
         },
@@ -24,13 +23,11 @@
         methods:{
             login(){
                 this.$refs['userForm'].validate((valid) => {
-                    if (valid) {  // 表單檢驗合法
+                    if (valid) {
                         this.request.post("/user/login",this.user).then(res=> {
                             if (res.code === '200') {
-                                localStorage.setItem("user",JSON.stringify(res.data)) // 存儲用戶信息到瀏覽器
-                                localStorage.setItem("menus",JSON.stringify(res.data.menus)) // 存儲用戶信息到瀏覽器
-
-                                // 動態設置當前用戶的路由
+                                localStorage.setItem("user",JSON.stringify(res.data))
+                                localStorage.setItem("menus",JSON.stringify(res.data.menus))
                                 setRoutes()
                                 this.$message.success("登入成功")
                                 if(res.data.role === 'ROLE_STUDENT'){
@@ -40,21 +37,11 @@
                                 }
                             } else {
                                 this.$message.error(res.msg);
-                                // this.resetForm('userForm');
                             }
                         })
-                    // } else {
-                    //     return false;
                     }});
-
             },
-            // resetForm(userForm) {
-            //     this.$refs[userForm].resetFields();
-            // }
-
         }
-
-
     })
 </script>
 
@@ -72,7 +59,6 @@
           <div style="margin: 10px 0 ; text-align:right">
               <el-button type="warning" size="small" autocomplete="off" @click= "$router.push('/register')">註冊</el-button>
               <el-button type="primary" size="small" autocomplete="off" @click= 'login' >登錄</el-button>
-<!--              <el-button @click="resetForm('userForm')">重置</el-button>-->
           </div>
           </el-form>
       </div>
